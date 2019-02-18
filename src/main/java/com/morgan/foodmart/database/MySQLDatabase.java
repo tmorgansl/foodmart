@@ -27,42 +27,27 @@ public class MySQLDatabase implements EmployeeDatabaseService {
 
   @Override
   public List<String> getDepartments() {
-    return executeQuerySingleStringColumn(
-        "SELECT department_description FROM foodmart.department GROUP BY department_description");
+    return executeQuerySingleStringColumn(Constants.departmentsQuery);
   }
 
   @Override
   public List<String> getPayTypes() {
-    return executeQuerySingleStringColumn(
-        "SELECT pay_type FROM foodmart.`position` GROUP BY pay_type");
+    return executeQuerySingleStringColumn(Constants.payTypesQuery);
   }
 
   @Override
   public List<String> getEducation() {
-    return executeQuerySingleStringColumn(
-        "SELECT education_level FROM foodmart.employee GROUP BY education_level");
+    return executeQuerySingleStringColumn(Constants.educationLevelQuery);
   }
 
   @Override
   public List<EmployeeDetails> getEmployeeDetails(
       String department, String payType, String education) {
 
-    final String query =
-        "SELECT e.full_name,"
-            + "e.position_title,"
-            + "e.hire_date,"
-            + "e.end_date,"
-            + "e.management_role "
-            + "FROM foodmart.employee e "
-            + "INNER JOIN foodmart.`position` p ON p.position_id = e.position_id "
-            + "INNER JOIN foodmart.department d ON d.department_id = e.department_id "
-            + "WHERE p.pay_type = ? "
-            + "AND department_description = ? "
-            + "AND education_level = ?";
-
     List<EmployeeDetails> employeeDetails = new ArrayList<>();
 
-    try (PreparedStatement stmt = this.connection.prepareStatement(query)) {
+    try (PreparedStatement stmt =
+        this.connection.prepareStatement(Constants.employeeDetailsQuery)) {
 
       stmt.setString(1, payType);
       stmt.setString(2, department);
