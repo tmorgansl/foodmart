@@ -21,7 +21,7 @@ public class MySQLDatabase implements EmployeeDatabaseService {
   private final Connection connection;
 
   @Autowired
-  public MySQLDatabase(Connection connection) {
+  MySQLDatabase(Connection connection) {
     this.connection = connection;
   }
 
@@ -57,11 +57,11 @@ public class MySQLDatabase implements EmployeeDatabaseService {
         while (rs.next()) {
           final EmployeeDetails employee =
               new EmployeeDetails(
-                  rs.getString("full_name"),
-                  rs.getString("position_title"),
-                  rs.getDate("hire_date"),
-                  rs.getDate("end_date"),
-                  rs.getString("management_role"));
+                  rs.getString(Constants.fullNameColumn),
+                  rs.getString(Constants.positionTitleColumn),
+                  rs.getDate(Constants.hireDataColumn),
+                  rs.getDate(Constants.endDateColumn),
+                  rs.getString(Constants.managementRoleColumn));
 
           employeeDetails.add(employee);
         }

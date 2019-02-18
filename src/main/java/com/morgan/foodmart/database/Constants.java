@@ -23,4 +23,10 @@ class Constants {
 
   static final String educationLevelQuery =
       "SELECT education_level FROM foodmart.employee GROUP BY education_level";
+
+  static final String fullNameColumn = "full_name";
+  static final String positionTitleColumn = "position_title";
+  static final String hireDataColumn = "hire_date";
+  static final String endDateColumn = "end_date";
+  static final String managementRoleColumn = "management_role";
 }
