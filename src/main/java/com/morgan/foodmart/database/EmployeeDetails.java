@@ -14,8 +14,19 @@ public class EmployeeDetails {
       String fullName, String positionTitle, Date hireDate, Date endDate, String managementRole) {
     this.fullName = fullName;
     this.positionTitle = positionTitle;
-    this.hireDate = (Date) hireDate.clone();
-    this.endDate = (Date) endDate.clone();
+
+    if (hireDate != null) {
+      this.hireDate = (Date) hireDate.clone();
+    } else {
+      this.hireDate = null;
+    }
+
+    if (endDate != null) {
+      this.endDate = (Date) endDate.clone();
+    } else {
+      this.endDate = null;
+    }
+
     this.managementRole = managementRole;
   }
 
@@ -28,11 +39,21 @@ public class EmployeeDetails {
   }
 
   public Date getHireDate() {
-    return hireDate;
+    // fix for EI_EXPOSE_REP
+    if (hireDate != null) {
+      return new Date(hireDate.getTime());
+    } else {
+      return null;
+    }
   }
 
   public Date getEndDate() {
-    return endDate;
+    // fix for EI_EXPOSE_REP
+    if (endDate != null) {
+      return new Date(endDate.getTime());
+    } else {
+      return null;
+    }
   }
 
   public String getManagementRole() {
